@@ -29,7 +29,8 @@ def run():
     numeric_data = []
     for row in data:
         new_row = []
-        for value in row:
+        # First column is time, which we dont need average for, so skip it.
+        for value in row[1:]:
             new_row.append(float(value))
         numeric_data.append(new_row)
 
@@ -40,11 +41,16 @@ def run():
     column_5 = []
     column_6 = []
     for row in numeric_data:
-        column_2.append(row[2])
-        column_3.append(row[3])
-        column_4.append(row[4])
-        column_5.append(row[5])
-        column_6.append(row[6])
+        if not math.isnan(row[0]):
+            column_2.append(row[0])
+        if not math.isnan(row[1]):
+            column_3.append(row[1])
+        if not math.isnan(row[2]):
+            column_4.append(row[2])
+        if not math.isnan(row[3]):
+            column_5.append(row[3])
+        if not math.isnan(row[4]):
+            column_6.append(row[4])
 
     # Calculate the average of each column
     col_2_avg = sum(column_2) / len(column_2)
@@ -67,6 +73,7 @@ if __name__ == '__main__':
     import sys
     import time
     import math
+    import csv
 
     start = time.perf_counter()
     averages = run()
